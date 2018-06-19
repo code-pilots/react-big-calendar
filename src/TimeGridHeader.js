@@ -99,7 +99,7 @@ class TimeGridHeader extends React.Component {
       let label = localizer
         .format(date, dayFormat, culture)
         .split(' ')
-        .map(s => '<span>' + s + '</span>')
+        .map(s => <span>{s}</span>)
         .join()
 
       const { className, style } = (dayPropGetter && dayPropGetter(date)) || {}
