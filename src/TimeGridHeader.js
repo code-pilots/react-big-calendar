@@ -96,7 +96,11 @@ class TimeGridHeader extends React.Component {
 
     return range.map((date, i) => {
       let drilldownView = getDrilldownView(date)
-      let label = localizer.format(date, dayFormat, culture)
+      let label = localizer
+        .format(date, dayFormat, culture)
+        .split(' ')
+        .map(s => '<span>' + s + '</span>')
+        .join()
 
       const { className, style } = (dayPropGetter && dayPropGetter(date)) || {}
 
