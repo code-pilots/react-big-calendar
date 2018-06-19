@@ -9,23 +9,29 @@ export default class ObjectsVacanciesGutter extends Component {
 
   render() {
     return (
-      <div className="rbc-time-gutter rbc-time-column">
-        {this.props.items.map((item, key) => {
-          return (
-            <div className={'rbc-object-vacancy-row'} key={key}>
-              <div className={'rbc-object-item'}>{item.name}</div>
-              <div className={'rbc-vacancies-wrapper'}>
-                {item.vacancies.map((vacancy, vKey) => {
-                  return (
-                    <div key={vKey} className={'rbc-vacancy-item'}>
-                      {`${vacancy.name} &mdash; ${vacancy.rate} &#8381;/ч`}
-                    </div>
-                  )
-                })}
+      <div className="rbc-time-gutter rbc-objects-vacancies-gutter rbc-time-column">
+        {!!this.props.items &&
+          this.props.items.map((item, key) => {
+            return (
+              <div className={'rbc-object-vacancy-row'} key={key}>
+                <div className={'rbc-object-item'}>
+                  <div className={'rbc-object-item-name'}>{item.name}</div>
+                  <div className={'rbc-object-item-client-name'}>
+                    {item.client_name}
+                  </div>
+                </div>
+                <div className={'rbc-vacancies-wrapper'}>
+                  {item.vacancies.map((vacancy, vKey) => {
+                    return (
+                      <div key={vKey} className={'rbc-vacancy-item'}>
+                        {`${vacancy.name} &mdash; ${vacancy.rate} &#8381;/ч`}
+                      </div>
+                    )
+                  })}
+                </div>
               </div>
-            </div>
-          )
-        })}
+            )
+          })}
       </div>
     )
   }

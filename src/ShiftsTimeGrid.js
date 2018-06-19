@@ -7,7 +7,6 @@ import { findDOMNode } from 'react-dom'
 import dates from './utils/dates'
 import DayColumn from './DayColumn'
 
-import getWidth from 'dom-helpers/query/width'
 import ShiftsTimeGridHeader from './ShiftsTimeGridHeader'
 import { accessor, dateFormat } from './utils/propTypes'
 import { notify } from './utils/helpers'
@@ -84,10 +83,6 @@ export default class ShiftsTimeGrid extends Component {
   componentDidMount() {
     this.checkOverflow()
 
-    if (this.props.width == null) {
-      this.measureGutter()
-    }
-
     this.applyScroll()
 
     window.addEventListener('resize', this.handleResize)
@@ -105,10 +100,6 @@ export default class ShiftsTimeGrid extends Component {
   }
 
   componentDidUpdate() {
-    if (this.props.width == null) {
-      this.measureGutter()
-    }
-
     this.applyScroll()
     //this.checkOverflow()
   }
@@ -284,14 +275,6 @@ export default class ShiftsTimeGrid extends Component {
   clearSelection() {
     clearTimeout(this._selectTimer)
     this._pendingSelection = []
-  }
-
-  measureGutter() {
-    const width = getWidth(this.gutter)
-
-    if (width && this.state.gutterWidth !== width) {
-      this.setState({ gutterWidth: width })
-    }
   }
 
   applyScroll() {
