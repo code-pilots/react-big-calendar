@@ -24,7 +24,6 @@ class ShiftsTimeGridHeader extends React.Component {
     culture: PropTypes.string,
 
     rtl: PropTypes.bool,
-    width: PropTypes.number,
 
     titleAccessor: accessor.isRequired,
     tooltipAccessor: accessor.isRequired,
@@ -114,7 +113,7 @@ class ShiftsTimeGridHeader extends React.Component {
   }
 
   render() {
-    let { width, rtl, range, isOverflowing, title } = this.props
+    let { rtl, range, isOverflowing, title } = this.props
 
     let style = {}
     if (isOverflowing) {
@@ -125,9 +124,34 @@ class ShiftsTimeGridHeader extends React.Component {
       <div
         ref="headerCell"
         style={style}
-        className={cn('rbc-time-header', isOverflowing && 'rbc-overflowing')}
+        className={cn(
+          'rbc-time-header',
+          isOverflowing && 'rbc-overflowing',
+          'ShiftsTimeGridHeader'
+        )}
       >
-        <div className="rbc-label rbc-time-header-gutter" style={{ width }} />
+        <div className="rbc-label rbc-time-header-objects">
+          <span className={'object-title'}>Объект</span>
+          <span className={'sort-icon-wrapper'}>
+            <span
+              className={cn('sort-icon', {
+                // asc: asc,
+                // desc: desc
+              })}
+            />
+          </span>
+        </div>
+        <div className="rbc-label rbc-time-header-vacancies">
+          <span className={'object-title'}>Вакансии</span>
+          <span className={'sort-icon-wrapper'}>
+            <span
+              className={cn('sort-icon', {
+                // asc: asc,
+                // desc: desc
+              })}
+            />
+          </span>
+        </div>
 
         <div className="rbc-time-header-content">
           <div className="rbc-row rbc-time-header-title">
