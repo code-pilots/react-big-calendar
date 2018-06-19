@@ -6,7 +6,6 @@ import { findDOMNode } from 'react-dom'
 
 import dates from './utils/dates'
 import DayColumn from './DayColumn'
-import TimeGutter from './TimeGutter'
 
 import getWidth from 'dom-helpers/query/width'
 import ShiftsTimeGridHeader from './ShiftsTimeGridHeader'
@@ -14,6 +13,7 @@ import { accessor, dateFormat } from './utils/propTypes'
 import { notify } from './utils/helpers'
 import { accessor as get } from './utils/accessors'
 import { inRange, sortEvents } from './utils/eventLevels'
+import ObjectsVacanciesGutter from './ObjectsVacanciesGutter'
 
 export default class ShiftsTimeGrid extends Component {
   static propTypes = {
@@ -274,12 +274,7 @@ export default class ShiftsTimeGrid extends Component {
           getDrilldownView={this.props.getDrilldownView}
         />
         <div ref="content" className="rbc-time-content">
-          <TimeGutter
-            {...this.props}
-            date={start}
-            ref={this.gutterRef}
-            className="rbc-time-gutter"
-          />
+          <ObjectsVacanciesGutter items={events.vacancies} />
           {this.renderEvents(range, rangeEvents, getNow(), resources || [null])}
         </div>
       </div>
