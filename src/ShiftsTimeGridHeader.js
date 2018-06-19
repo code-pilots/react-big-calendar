@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import PropTypes from 'prop-types'
 import cn from 'classnames'
 import scrollbarSize from 'dom-helpers/util/scrollbarSize'
@@ -7,10 +6,8 @@ import React from 'react'
 import dates from './utils/dates'
 import { elementType, accessor, dateFormat } from './utils/propTypes'
 import localizer from './localizer'
-import DateContentRow from './DateContentRow'
 import Header from './Header'
 import { notify } from './utils/helpers'
-import { accessor as get } from './utils/accessors'
 
 class ShiftsTimeGridHeader extends React.Component {
   static propTypes = {
@@ -19,6 +16,7 @@ class ShiftsTimeGridHeader extends React.Component {
     resources: PropTypes.array,
     getNow: PropTypes.func.isRequired,
     isOverflowing: PropTypes.bool,
+    title: PropTypes.string,
 
     dayFormat: dateFormat,
     eventPropGetter: PropTypes.func,
@@ -60,27 +58,6 @@ class ShiftsTimeGridHeader extends React.Component {
   handleHeaderClick = (date, view, e) => {
     e.preventDefault()
     notify(this.props.onDrillDown, [date, view])
-  }
-
-  renderHeaderResources(range, resources) {
-    const { resourceTitleAccessor, getNow } = this.props
-    const today = getNow()
-
-    return range.map((date, i) => {
-      return resources.map((resource, j) => {
-        return (
-          <div
-            key={`${i}-${j}`}
-            className={cn(
-              'rbc-header',
-              dates.eq(date, today, 'day') && 'rbc-today'
-            )}
-          >
-            {get(resource, resourceTitleAccessor)}
-          </div>
-        )
-      })
-    })
   }
 
   renderHeaderCells(range) {
@@ -137,19 +114,7 @@ class ShiftsTimeGridHeader extends React.Component {
   }
 
   render() {
-    let {
-      width,
-      events,
-      rtl,
-      selectable,
-      resources,
-      getNow,
-      range,
-      isOverflowing,
-      eventComponent,
-      dateCellWrapperComponent,
-      eventWrapperComponent,
-    } = this.props
+    let { width, rtl, range, isOverflowing, title } = this.props
 
     let style = {}
     if (isOverflowing) {
@@ -165,41 +130,12 @@ class ShiftsTimeGridHeader extends React.Component {
         <div className="rbc-label rbc-time-header-gutter" style={{ width }} />
 
         <div className="rbc-time-header-content">
-          {console.log(resources)}
-          {resources && (
-            <div className="rbc-row rbc-row-resource">
-              {this.renderHeaderResources(range, resources)}
-            </div>
-          )}
+          <div className="rbc-row rbc-time-header-title">
+            {title ? title : 'Смены'}
+          </div>
           <div className="rbc-row rbc-time-header-cell">
             {this.renderHeaderCells(range)}
           </div>
-
-          <DateContentRow
-            isAllDay
-            rtl={rtl}
-            getNow={getNow}
-            minRows={2}
-            range={range}
-            events={events}
-            className="rbc-allday-cell"
-            selectable={selectable}
-            selected={this.props.selected}
-            eventComponent={eventComponent}
-            eventWrapperComponent={eventWrapperComponent}
-            dateCellWrapperComponent={dateCellWrapperComponent}
-            dayPropGetter={this.props.dayPropGetter}
-            titleAccessor={this.props.titleAccessor}
-            tooltipAccessor={this.props.tooltipAccessor}
-            startAccessor={this.props.startAccessor}
-            endAccessor={this.props.endAccessor}
-            allDayAccessor={this.props.allDayAccessor}
-            eventPropGetter={this.props.eventPropGetter}
-            onSelect={this.props.onSelectEvent}
-            onDoubleClick={this.props.onDoubleClickEvent}
-            onSelectSlot={this.props.onSelectSlot}
-            longPressThreshold={this.props.longPressThreshold}
-          />
         </div>
       </div>
     )
