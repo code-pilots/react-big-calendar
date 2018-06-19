@@ -34,7 +34,7 @@ Shifts.navigate = (date, action) => {
 }
 
 Shifts.range = (date, { culture }) => {
-  let firstOfShifts = localizer.startOfShifts(culture)
+  let firstOfShifts = localizer.startOfWeek(culture)
   let start = dates.startOf(date, 'week', firstOfShifts)
   let end = dates.endOf(date, 'week', firstOfShifts)
 
