@@ -21,12 +21,25 @@ export default class ObjectsVacanciesGutter extends Component {
                   <div className={'rbc-object-item-company-name'}>
                     {item.companyName}
                   </div>
+                  {item.distance && (
+                    <div
+                      className={`rbc-object-item-company-distance color-${
+                        item.distance.color
+                      }`}
+                    >
+                      {item.distance.value}
+                    </div>
+                  )}
                 </div>
                 <div className={'rbc-vacancies-wrapper'}>
                   {item.vacancies.map((vacancy, vKey) => {
                     return (
                       <div key={vKey} className={'rbc-vacancy-item'}>
-                        {`${vacancy.name} &mdash; ${vacancy.rate} &#8381;/ч`}
+                        {`${vacancy.name} `}
+                        &mdash;
+                        {`${vacancy.rate} `}
+                        &#8381;
+                        {`/ч `}
                       </div>
                     )
                   })}
