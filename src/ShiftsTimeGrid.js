@@ -19,6 +19,8 @@ export default class ShiftsTimeGrid extends Component {
     events: PropTypes.array.isRequired,
     resources: PropTypes.array,
 
+    employee: PropTypes.array,
+
     step: PropTypes.number,
     range: PropTypes.arrayOf(PropTypes.instanceOf(Date)),
     min: PropTypes.instanceOf(Date),
@@ -199,6 +201,7 @@ export default class ShiftsTimeGrid extends Component {
       eventPropGetter,
       showMultiDayTimes,
       longPressThreshold,
+      employee,
     } = this.props
 
     width = width || this.state.gutterWidth
@@ -232,6 +235,19 @@ export default class ShiftsTimeGrid extends Component {
 
     return (
       <div className="rbc-time-view">
+        {!!employee && (
+          <div className={'employee__header'}>
+            <div className={'employee__header-wrap'}>
+              <div className={'employee__header-id'}>{`ID ${employee.id}`}</div>
+              <div className={'employee__header-carma'}>
+                <span className={`custom-icon ${employee.carma}`} />
+              </div>
+            </div>
+            <div className={'employee__header-wrap'}>
+              <div className={'employee__header-name'}>{employee.name}</div>
+            </div>
+          </div>
+        )}
         <ShiftsTimeGridHeader
           range={range}
           events={allDayEvents}
