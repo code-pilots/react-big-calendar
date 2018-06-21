@@ -15,9 +15,11 @@ export default class ObjectsVacanciesGutter extends Component {
             return (
               <div className={'rbc-object-vacancy-row'} key={key}>
                 <div className={'rbc-object-item'}>
-                  <div className={'rbc-object-item-name'}>{item.name}</div>
-                  <div className={'rbc-object-item-client-name'}>
-                    {item.client_name}
+                  <div className={'rbc-object-item-object-name'}>
+                    {item.objectName}
+                  </div>
+                  <div className={'rbc-object-item-company-name'}>
+                    {item.companyName}
                   </div>
                 </div>
                 <div className={'rbc-vacancies-wrapper'}>

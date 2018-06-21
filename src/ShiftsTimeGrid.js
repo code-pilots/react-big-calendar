@@ -265,7 +265,7 @@ export default class ShiftsTimeGrid extends Component {
           getDrilldownView={this.props.getDrilldownView}
         />
         <div ref="content" className="rbc-time-content">
-          <ObjectsVacanciesGutter items={events.vacancies} />
+          <ObjectsVacanciesGutter items={events} />
           {this.renderEvents(range, rangeEvents, getNow(), resources || [null])}
         </div>
       </div>
