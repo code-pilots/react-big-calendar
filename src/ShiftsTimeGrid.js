@@ -243,9 +243,7 @@ export default class ShiftsTimeGrid extends Component {
                 <span className={`custom-icon ${employee.carma}`} />
               </div>
             </div>
-            <div className={'employee__header-wrap'}>
-              <div className={'employee__header-name'}>{employee.name}</div>
-            </div>
+            <div className={'employee__header-name'}>{employee.name}</div>
           </div>
         )}
         <ShiftsTimeGridHeader
