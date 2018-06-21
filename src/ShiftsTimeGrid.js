@@ -19,7 +19,7 @@ export default class ShiftsTimeGrid extends Component {
     events: PropTypes.array.isRequired,
     resources: PropTypes.array,
 
-    employee: PropTypes.array,
+    employees: PropTypes.array,
     getColor: PropTypes.func.isRequired,
 
     step: PropTypes.number,
@@ -202,7 +202,7 @@ export default class ShiftsTimeGrid extends Component {
       eventPropGetter,
       showMultiDayTimes,
       longPressThreshold,
-      employee,
+      employees,
       getColor,
     } = this.props
 
@@ -237,15 +237,17 @@ export default class ShiftsTimeGrid extends Component {
 
     return (
       <div className="rbc-time-view">
-        {!!employee && (
+        {!!employees.length && (
           <div className={'employee__header'}>
             <div className={'employee__header-wrap'}>
-              <div className={'employee__header-id'}>{`ID ${employee.id}`}</div>
+              <div className={'employee__header-id'}>{`ID ${
+                employees[0].id
+              }`}</div>
               <div className={'employee__header-carma'}>
-                <span className={`custom-icon ${employee.carma}`} />
+                <span className={`custom-icon ${employees[0].carma}`} />
               </div>
             </div>
-            <div className={'employee__header-name'}>{employee.name}</div>
+            <div className={'employee__header-name'}>{employees[0].name}</div>
           </div>
         )}
         <ShiftsTimeGridHeader
