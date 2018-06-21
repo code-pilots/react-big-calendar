@@ -20,6 +20,7 @@ export default class ShiftsTimeGrid extends Component {
     resources: PropTypes.array,
 
     employee: PropTypes.array,
+    getColor: PropTypes.func.isRequired,
 
     step: PropTypes.number,
     range: PropTypes.arrayOf(PropTypes.instanceOf(Date)),
@@ -202,6 +203,7 @@ export default class ShiftsTimeGrid extends Component {
       showMultiDayTimes,
       longPressThreshold,
       employee,
+      getColor,
     } = this.props
 
     width = width || this.state.gutterWidth
@@ -279,7 +281,7 @@ export default class ShiftsTimeGrid extends Component {
           getDrilldownView={this.props.getDrilldownView}
         />
         <div ref="content" className="rbc-time-content">
-          <ObjectsVacanciesGutter items={events} />
+          <ObjectsVacanciesGutter items={events} getColor={getColor} />
           {this.renderEvents(range, rangeEvents, getNow(), resources || [null])}
         </div>
       </div>

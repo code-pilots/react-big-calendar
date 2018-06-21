@@ -5,13 +5,15 @@ import React, { Component } from 'react'
 export default class ObjectsVacanciesGutter extends Component {
   static propTypes = {
     items: PropTypes.array.isRequired,
+    getColor: PropTypes.func.isRequired,
   }
 
   render() {
+    const { items, getColor } = this.props
     return (
       <div className="rbc-time-gutter rbc-objects-vacancies-gutter rbc-time-column">
-        {!!this.props.items &&
-          this.props.items.map((item, key) => {
+        {!!items &&
+          items.map((item, key) => {
             return (
               <div className={'rbc-object-vacancy-row'} key={key}>
                 <div className={'rbc-object-item'}>
@@ -23,9 +25,9 @@ export default class ObjectsVacanciesGutter extends Component {
                   </div>
                   {item.distance && (
                     <div
-                      className={`rbc-object-item-company-distance color-${
-                        item.distance.color
-                      }`}
+                      className={`rbc-object-item-company-distance color-${getColor(
+                        item.distance.value
+                      )}`}
                     >
                       {item.distance.value}
                     </div>
