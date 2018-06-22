@@ -18,10 +18,10 @@ export default class ObjectsVacanciesGutter extends Component {
               <div className={'rbc-object-vacancy-row'} key={key}>
                 <div className={'rbc-object-item'}>
                   <div className={'rbc-object-item-object-name'}>
-                    {item.objectName}
+                    {item.object.name}
                   </div>
                   <div className={'rbc-object-item-company-name'}>
-                    {item.companyName}
+                    {item.client.name}
                   </div>
                   {item.distance && (
                     <div
@@ -39,7 +39,7 @@ export default class ObjectsVacanciesGutter extends Component {
                       <div key={vKey} className={'rbc-vacancy-item'}>
                         {`${vacancy.name} `}
                         &mdash;
-                        {`${vacancy.rate} `}
+                        {`${vacancy.price} `}
                         &#8381;
                         {`/ч `}
                       </div>
