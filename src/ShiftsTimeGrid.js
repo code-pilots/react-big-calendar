@@ -1,11 +1,10 @@
 import PropTypes from 'prop-types'
-import cn from 'classnames'
 import raf from 'dom-helpers/util/requestAnimationFrame'
 import React, { Component } from 'react'
 import { findDOMNode } from 'react-dom'
-
+import moment from 'moment'
 import dates from './utils/dates'
-import DayColumn from './DayColumn'
+import cn from 'classnames'
 
 import ShiftsTimeGridHeader from './ShiftsTimeGridHeader'
 import { accessor, dateFormat } from './utils/propTypes'
@@ -20,7 +19,8 @@ export default class ShiftsTimeGrid extends Component {
     resources: PropTypes.array,
 
     employees: PropTypes.array,
-    getColor: PropTypes.func.isRequired,
+    getDistanceColor: PropTypes.func.isRequired,
+    getShiftColor: PropTypes.func.isRequired,
 
     step: PropTypes.number,
     range: PropTypes.arrayOf(PropTypes.instanceOf(Date)),
@@ -138,52 +138,50 @@ export default class ShiftsTimeGrid extends Component {
     })
   }
 
-  renderEvents(range, events, today, resources) {
-    let {
-      min,
-      max,
-      endAccessor,
-      startAccessor,
-      resourceAccessor,
-      resourceIdAccessor,
-      components,
-    } = this.props
+  isInThisDay(date, startEvent, endEvent) {
+    const momentDate = moment(date)
+    return (
+      momentDate.date() === moment.unix(startEvent).date() &&
+      momentDate.date() === moment.unix(endEvent).date()
+    )
+  }
 
-    return range.map((date, idx) => {
-      let daysEvents = events.filter(event =>
-        dates.inRange(
-          date,
-          get(event, startAccessor),
-          get(event, endAccessor),
-          'day'
-        )
-      )
-
-      return resources.map((resource, id) => {
-        let eventsToDisplay = !resource
-          ? daysEvents
-          : daysEvents.filter(
-              event =>
-                get(event, resourceAccessor) ===
-                get(resource, resourceIdAccessor)
+  renderEvents(range, events) {
+    return range.map(date => {
+      return (
+        <div className={'rbc-day-column'}>
+          {events.map(event => {
+            return (
+              <div className={'rbc-object-cell'}>
+                {event.vacancies.map(vacancy => {
+                  return vacancy.events.map(vaEvent => {
+                    return (
+                      <div className={'rbc-shift-cell'}>
+                        {this.isInThisDay(
+                          date,
+                          vaEvent.date_from,
+                          vaEvent.date_to
+                        ) && (
+                          <div
+                            className={cn(
+                              'rbc-vacancy-event',
+                              `color-${this.props.getShiftColor(
+                                vaEvent.status
+                              )}`
+                            )}
+                          >
+                            {`${vaEvent.signed} из ${vaEvent.total}`}
+                          </div>
+                        )}
+                      </div>
+                    )
+                  })
+                })}
+              </div>
             )
-
-        return (
-          <DayColumn
-            {...this.props}
-            min={dates.merge(date, min)}
-            max={dates.merge(date, max)}
-            resource={get(resource, resourceIdAccessor)}
-            eventComponent={components.event}
-            eventWrapperComponent={components.eventWrapper}
-            timeSlotWrapperComponent={components.dayWrapper}
-            className={cn({ 'rbc-now': dates.eq(date, today, 'day') })}
-            key={idx + '-' + id}
-            date={date}
-            events={eventsToDisplay}
-          />
-        )
-      })
+          })}
+        </div>
+      )
     })
   }
 
@@ -203,7 +201,7 @@ export default class ShiftsTimeGrid extends Component {
       showMultiDayTimes,
       longPressThreshold,
       employees,
-      getColor,
+      getDistanceColor,
     } = this.props
 
     width = width || this.state.gutterWidth
@@ -283,8 +281,11 @@ export default class ShiftsTimeGrid extends Component {
           getDrilldownView={this.props.getDrilldownView}
         />
         <div ref="content" className="rbc-time-content">
-          <ObjectsVacanciesGutter items={events} getColor={getColor} />
-          {this.renderEvents(range, rangeEvents, getNow(), resources || [null])}
+          <ObjectsVacanciesGutter
+            items={events}
+            getDistanceColor={getDistanceColor}
+          />
+          {this.renderEvents(range, events, getNow())}
         </div>
       </div>
     )
