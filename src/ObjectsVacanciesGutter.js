@@ -39,9 +39,9 @@ export default class ObjectsVacanciesGutter extends Component {
                       <div key={vKey} className={'rbc-vacancy-item'}>
                         {`${vacancy.name} `}
                         &mdash;
-                        {`${vacancy.price} `}
+                        {` ${vacancy.price} `}
                         &#8381;
-                        {` ${item.unit.name}`}
+                        {` ${vacancy.unit.name}`}
                       </div>
                     )
                   })}
