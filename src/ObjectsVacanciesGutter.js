@@ -41,7 +41,7 @@ export default class ObjectsVacanciesGutter extends Component {
                         &mdash;
                         {`${vacancy.price} `}
                         &#8381;
-                        {`/ч `}
+                        {` ${item.unit.name}`}
                       </div>
                     )
                   })}
