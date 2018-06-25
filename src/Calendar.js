@@ -670,6 +670,8 @@ class Calendar extends React.Component {
       }),
     }),
 
+    isLoading: PropTypes.bool,
+
     /**
      * String messages used throughout the component, override to provide localizations
      */
@@ -763,6 +765,7 @@ class Calendar extends React.Component {
       date: current,
       getNow,
       length,
+      isLoading,
       ...props
     } = this.props
 
@@ -785,6 +788,7 @@ class Calendar extends React.Component {
     )
 
     let CalToolbar = components.toolbar || Toolbar
+    let Loader = components.loader
     const label = View.title(current, { formats, culture, length })
 
     return (
@@ -804,26 +808,29 @@ class Calendar extends React.Component {
             messages={messages}
           />
         )}
-        <View
-          ref="view"
-          {...props}
-          {...formats}
-          messages={messages}
-          culture={culture}
-          formats={undefined}
-          events={events}
-          date={current}
-          getNow={getNow}
-          length={length}
-          components={viewComponents}
-          getDrilldownView={this.getDrilldownView}
-          onNavigate={this.handleNavigate}
-          onDrillDown={this.handleDrillDown}
-          onSelectEvent={this.handleSelectEvent}
-          onDoubleClickEvent={this.handleDoubleClickEvent}
-          onSelectSlot={this.handleSelectSlot}
-          onShowMore={this._showMore}
-        />
+        {!!isLoading && <Loader />}
+        {!isLoading && (
+          <View
+            ref="view"
+            {...props}
+            {...formats}
+            messages={messages}
+            culture={culture}
+            formats={undefined}
+            events={events}
+            date={current}
+            getNow={getNow}
+            length={length}
+            components={viewComponents}
+            getDrilldownView={this.getDrilldownView}
+            onNavigate={this.handleNavigate}
+            onDrillDown={this.handleDrillDown}
+            onSelectEvent={this.handleSelectEvent}
+            onDoubleClickEvent={this.handleDoubleClickEvent}
+            onSelectSlot={this.handleSelectSlot}
+            onShowMore={this._showMore}
+          />
+        )}
       </div>
     )
   }
