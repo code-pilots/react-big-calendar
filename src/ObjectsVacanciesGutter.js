@@ -11,7 +11,7 @@ export default class ObjectsVacanciesGutter extends Component {
     let emptyStrings = []
 
     for (let i = 0; i < events.length - 1; i++) {
-      emptyStrings.push(<div className={'rbc-vacancy-item'} />)
+      emptyStrings.push(<div key={0 - i} className={'rbc-vacancy-item'} />)
     }
 
     return emptyStrings
@@ -45,8 +45,8 @@ export default class ObjectsVacanciesGutter extends Component {
                 <div className={'rbc-vacancies-wrapper'}>
                   {item.vacancies.map((vacancy, vKey) => {
                     return (
-                      <div>
-                        <div key={vKey} className={'rbc-vacancy-item'}>
+                      <div key={vKey}>
+                        <div className={'rbc-vacancy-item'}>
                           {`${vacancy.name} `}
                           &mdash;
                           {` ${vacancy.price} `}
