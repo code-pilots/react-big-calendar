@@ -1,4 +1,3 @@
-// import cn from 'classnames'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 
@@ -6,6 +5,16 @@ export default class ObjectsVacanciesGutter extends Component {
   static propTypes = {
     items: PropTypes.array.isRequired,
     getDistanceColor: PropTypes.func.isRequired,
+  }
+
+  putEmptyStrings(events) {
+    let emptyStrings = []
+
+    for (let i = 0; i < events.length - 1; i++) {
+      emptyStrings.push(<div className={'rbc-vacancy-item'} />)
+    }
+
+    return emptyStrings
   }
 
   render() {
@@ -36,12 +45,15 @@ export default class ObjectsVacanciesGutter extends Component {
                 <div className={'rbc-vacancies-wrapper'}>
                   {item.vacancies.map((vacancy, vKey) => {
                     return (
-                      <div key={vKey} className={'rbc-vacancy-item'}>
-                        {`${vacancy.name} `}
-                        &mdash;
-                        {` ${vacancy.price} `}
-                        &#8381;
-                        {` ${vacancy.unit.name}`}
+                      <div>
+                        <div key={vKey} className={'rbc-vacancy-item'}>
+                          {`${vacancy.name} `}
+                          &mdash;
+                          {` ${vacancy.price} `}
+                          &#8381;
+                          {` ${vacancy.unit.name}`}
+                        </div>
+                        {this.putEmptyStrings(vacancy.events)}
                       </div>
                     )
                   })}
