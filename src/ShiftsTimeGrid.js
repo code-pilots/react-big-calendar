@@ -4,7 +4,6 @@ import React, { Component } from 'react'
 import { findDOMNode } from 'react-dom'
 import moment from 'moment'
 import dates from './utils/dates'
-import cn from 'classnames'
 
 import ShiftsTimeGridHeader from './ShiftsTimeGridHeader'
 import { accessor, dateFormat } from './utils/propTypes'
@@ -57,6 +56,7 @@ export default class ShiftsTimeGrid extends Component {
     onSelectEnd: PropTypes.func,
     onSelectStart: PropTypes.func,
     onSelectEvent: PropTypes.func,
+    onCellRender: PropTypes.func,
     onDoubleClickEvent: PropTypes.func,
     onDrillDown: PropTypes.func,
     getDrilldownView: PropTypes.func.isRequired,
@@ -155,26 +155,7 @@ export default class ShiftsTimeGrid extends Component {
               <div className={'rbc-object-cell'} key={eventIdx}>
                 {event.vacancies.map(vacancy => {
                   return vacancy.events.map((vaEvent, vaEventIdx) => {
-                    return (
-                      <div className={'rbc-shift-cell'} key={vaEventIdx}>
-                        {this.isInThisDay(
-                          date,
-                          vaEvent.date_from,
-                          vaEvent.date_to
-                        ) && (
-                          <div
-                            className={cn(
-                              'rbc-vacancy-event',
-                              `color-${this.props.getShiftColor(
-                                vaEvent.status
-                              )}`
-                            )}
-                          >
-                            {`${vaEvent.signed} из ${vaEvent.total}`}
-                          </div>
-                        )}
-                      </div>
-                    )
+                    return this.props.onCellRender(date, vaEvent, vaEventIdx)
                   })
                 })}
               </div>
