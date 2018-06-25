@@ -233,19 +233,21 @@ export default class ShiftsTimeGrid extends Component {
 
     allDayEvents.sort((a, b) => sortEvents(a, b, this.props))
 
+    const employee = employees[0]
+
     return (
       <div className="rbc-time-view">
         {!!employees.length && (
           <div className={'employee__header'}>
             <div className={'employee__header-wrap'}>
-              <div className={'employee__header-id'}>{`ID ${
-                employees[0].id
-              }`}</div>
+              <div className={'employee__header-id'}>{`ID ${employee.id}`}</div>
               <div className={'employee__header-carma'}>
-                <span className={`custom-icon ${employees[0].carma}`} />
+                <span className={`custom-icon ${employee.carma}`} />
               </div>
             </div>
-            <div className={'employee__header-name'}>{employees[0].name}</div>
+            <div className={'employee__header-name'}>
+              {employee.fullname || employee.full_name}
+            </div>
           </div>
         )}
         <ShiftsTimeGridHeader
