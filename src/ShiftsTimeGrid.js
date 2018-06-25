@@ -19,7 +19,6 @@ export default class ShiftsTimeGrid extends Component {
 
     employees: PropTypes.array,
     getDistanceColor: PropTypes.func.isRequired,
-    getShiftColor: PropTypes.func.isRequired,
 
     step: PropTypes.number,
     range: PropTypes.arrayOf(PropTypes.instanceOf(Date)),
