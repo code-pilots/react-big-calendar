@@ -149,12 +149,18 @@ export default class ShiftsTimeGrid extends Component {
     return range.map((date, dateIdx) => {
       return (
         <div className={'rbc-day-column'} key={dateIdx}>
-          {events.map((event, eventIdx) => {
+          {events.map((event, eventIndex) => {
             return (
-              <div className={'rbc-object-cell'} key={eventIdx}>
+              <div className={'rbc-object-cell'} key={eventIndex}>
                 {event.vacancies.map(vacancy => {
-                  return vacancy.events.map((vaEvent, vaEventIdx) => {
-                    return this.props.onCellRender(date, vaEvent, vaEventIdx)
+                  return vacancy.events.map((vacancyEvent, vacancyEventIndex) => {
+                    return this.props.onCellRender({
+                      event,
+                      eventIndex,
+                      date,
+                      vacancyEvent,
+                      vacancyEventIndex
+                    })
                   })
                 })}
               </div>
