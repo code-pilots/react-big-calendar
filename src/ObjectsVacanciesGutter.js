@@ -11,7 +11,15 @@ export default class ObjectsVacanciesGutter extends Component {
     let emptyStrings = []
 
     for (let i = 0; i < events.length - 1; i++) {
-      emptyStrings.push(<div key={0 - i} className={'rbc-vacancy-item'} >OK</div>)
+      emptyStrings.push(
+        <div key={0 - i} className={'rbc-vacancy-item'}>
+          {`${events[i].vacancy.name} `}
+          &mdash;
+          {` ${events[i].price} `}
+          &#8381;
+          {` ${events[i].unit.name}`}
+        </div>
+      )
     }
 
     return emptyStrings
