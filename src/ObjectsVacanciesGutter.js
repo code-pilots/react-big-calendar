@@ -25,6 +25,13 @@ export default class ObjectsVacanciesGutter extends Component {
     return emptyStrings
   }
 
+  getDistanceValue = value => {
+    if (value < 1000) {
+      return `${value} м`
+    }
+    return `${(value / 1000).toFixed(2)} км`
+  }
+
   render() {
     const { items, getDistanceColor } = this.props
     return (
@@ -46,7 +53,7 @@ export default class ObjectsVacanciesGutter extends Component {
                         item.distance
                       )}`}
                     >
-                      {item.distance}
+                      {this.getDistanceValue(item.distance)}
                     </div>
                   )}
                 </div>
