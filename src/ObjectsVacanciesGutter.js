@@ -43,10 +43,10 @@ export default class ObjectsVacanciesGutter extends Component {
                   {item.distance && (
                     <div
                       className={`rbc-object-item-company-distance color-${getDistanceColor(
-                        item.distance.value
+                        item.distance
                       )}`}
                     >
-                      {item.distance.value}
+                      {item.distance}
                     </div>
                   )}
                 </div>
