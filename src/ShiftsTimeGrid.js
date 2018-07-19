@@ -56,6 +56,7 @@ export default class ShiftsTimeGrid extends Component {
     onSelectStart: PropTypes.func,
     onSelectEvent: PropTypes.func,
     onCellRender: PropTypes.func,
+    onEmployeeRemove: PropTypes.func,
     onDoubleClickEvent: PropTypes.func,
     onDrillDown: PropTypes.func,
     getDrilldownView: PropTypes.func.isRequired,
@@ -234,8 +235,23 @@ export default class ShiftsTimeGrid extends Component {
                 <span className={`custom-icon ${employee.carma}`} />
               </div>
             </div>
-            <div className={'employee__header-name'}>
-              {employee.fullname || employee.full_name}
+            <div
+              className="employee__header-name FilterTags"
+              style={{
+                paddingLeft: 0,
+                paddingTop: '30px',
+              }}
+            >
+              <a
+                className="FilterTag"
+                href="/#/click"
+                onClick={ev => {
+                  ev.preventDefault()
+                  this.props.onEmployeeRemove()
+                }}
+              >
+                {employee.fullname || employee.full_name}
+              </a>
             </div>
           </div>
         )}
