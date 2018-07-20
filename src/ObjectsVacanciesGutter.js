@@ -5,6 +5,7 @@ export default class ObjectsVacanciesGutter extends Component {
   static propTypes = {
     items: PropTypes.array.isRequired,
     getDistanceColor: PropTypes.func.isRequired,
+    getDistanceLabel: PropTypes.func.isRequired,
   }
 
   putEmptyStrings(events) {
@@ -25,15 +26,8 @@ export default class ObjectsVacanciesGutter extends Component {
     return emptyStrings
   }
 
-  getDistanceValue = value => {
-    if (value < 1000) {
-      return `${value.toFixed(2)} м`
-    }
-    return `${(value / 1000).toFixed(2)} км`
-  }
-
   render() {
-    const { items, getDistanceColor } = this.props
+    const { items, getDistanceColor, getDistanceLabel } = this.props
     return (
       <div className="rbc-time-gutter rbc-objects-vacancies-gutter rbc-time-column">
         {!!items &&
@@ -53,7 +47,7 @@ export default class ObjectsVacanciesGutter extends Component {
                         item.distance
                       )}`}
                     >
-                      {this.getDistanceValue(item.distance)}
+                      {getDistanceLabel(item.distance)}
                     </div>
                   )}
                 </div>
