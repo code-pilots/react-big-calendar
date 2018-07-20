@@ -27,7 +27,7 @@ export default class ObjectsVacanciesGutter extends Component {
 
   getDistanceValue = value => {
     if (value < 1000) {
-      return `${value} м`
+      return `${value.toFixed(2)} м`
     }
     return `${(value / 1000).toFixed(2)} км`
   }
