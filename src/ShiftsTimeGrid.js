@@ -19,6 +19,7 @@ export default class ShiftsTimeGrid extends Component {
 
     employees: PropTypes.array,
     getDistanceColor: PropTypes.func.isRequired,
+    getDistanceLabel: PropTypes.func.isRequired,
 
     step: PropTypes.number,
     range: PropTypes.arrayOf(PropTypes.instanceOf(Date)),
@@ -192,6 +193,7 @@ export default class ShiftsTimeGrid extends Component {
       longPressThreshold,
       employees,
       getDistanceColor,
+      getDistanceLabel,
     } = this.props
 
     width = width || this.state.gutterWidth
@@ -291,6 +293,7 @@ export default class ShiftsTimeGrid extends Component {
           <ObjectsVacanciesGutter
             items={events}
             getDistanceColor={getDistanceColor}
+            getDistanceLabel={getDistanceLabel}
           />
           {this.renderEvents(range, events, getNow())}
         </div>
