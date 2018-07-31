@@ -57,7 +57,7 @@ export default class ShiftsTimeGrid extends Component {
     onSelectStart: PropTypes.func,
     onSelectEvent: PropTypes.func,
     onCellRender: PropTypes.func,
-    onEmployeeRemove: PropTypes.func,
+    onEmployeeRender: PropTypes.func,
     onDoubleClickEvent: PropTypes.func,
     onDrillDown: PropTypes.func,
     getDrilldownView: PropTypes.func.isRequired,
@@ -244,16 +244,7 @@ export default class ShiftsTimeGrid extends Component {
                 paddingTop: '30px',
               }}
             >
-              <a
-                className="FilterTag"
-                href="/#/click"
-                onClick={ev => {
-                  ev.preventDefault()
-                  this.props.onEmployeeRemove()
-                }}
-              >
-                {employee.fullname || employee.full_name}
-              </a>
+              {this.props.onEmployeeRender(employee)}
             </div>
           </div>
         )}
