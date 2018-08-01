@@ -7,24 +7,7 @@ export default class ObjectsVacanciesGutter extends Component {
     getDistanceColor: PropTypes.func.isRequired,
     getDistanceLabel: PropTypes.func.isRequired,
     onVacancyRender: PropTypes.func.isRequired,
-  }
-
-  putEmptyStrings(events) {
-    let emptyStrings = []
-
-    for (let i = 0; i < events.length - 1; i++) {
-      emptyStrings.push(
-        <div key={0 - i} className={'rbc-vacancy-item'}>
-          {`${events[i].vacancy.name} `}
-          &mdash;
-          {` ${events[i].price} `}
-          &#8381;
-          {` ${events[i].unit.name}`}
-        </div>
-      )
-    }
-
-    return emptyStrings
+    onPutEmptyStrings: PropTypes.func.isRequired,
   }
 
   render() {
@@ -33,6 +16,7 @@ export default class ObjectsVacanciesGutter extends Component {
       getDistanceColor,
       getDistanceLabel,
       onVacancyRender,
+      onPutEmptyStrings,
     } = this.props
     return (
       <div className="rbc-time-gutter rbc-objects-vacancies-gutter rbc-time-column">
@@ -62,7 +46,7 @@ export default class ObjectsVacanciesGutter extends Component {
                     return (
                       <div key={vKey}>
                         {onVacancyRender(vacancy)}
-                        {this.putEmptyStrings(vacancy.events)}
+                        {onPutEmptyStrings(vacancy.events)}
                       </div>
                     )
                   })}
