@@ -58,6 +58,7 @@ export default class ShiftsTimeGrid extends Component {
     onSelectEvent: PropTypes.func,
     onCellRender: PropTypes.func,
     onEmployeeRender: PropTypes.func,
+    onVacancyRender: PropTypes.func,
     onDoubleClickEvent: PropTypes.func,
     onDrillDown: PropTypes.func,
     getDrilldownView: PropTypes.func.isRequired,
@@ -194,6 +195,7 @@ export default class ShiftsTimeGrid extends Component {
       employees,
       getDistanceColor,
       getDistanceLabel,
+      onVacancyRender,
     } = this.props
 
     width = width || this.state.gutterWidth
@@ -285,6 +287,7 @@ export default class ShiftsTimeGrid extends Component {
             items={events}
             getDistanceColor={getDistanceColor}
             getDistanceLabel={getDistanceLabel}
+            onVacancyRender={onVacancyRender}
           />
           {this.renderEvents(range, events, getNow())}
         </div>
